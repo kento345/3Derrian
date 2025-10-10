@@ -1,12 +1,20 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    //�ړ�
+    public enum EnemyState
+    {
+        Flee,Chase,Attack,Hole
+    }
+    public EnemyState currentState = EnemyState.Flee;
+    private Transform player;
+
+
+    //移動
     [SerializeField] private float speed = 10.0f;
 
-    private int rigth = 1;
-    private int left  = -1;
+    private int rigth = 10;
+    private int left  = 0;
 
     Rigidbody rb;
 
@@ -18,16 +26,67 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        CreatRay();
-        //Ran();
+        switch(currentState)
+        {
+            case EnemyState.Flee:
+                Flee();
+                break;
+            case EnemyState.Chase:
+                Chase();
+                break;
+            case EnemyState.Attack:
+                Attack();
+                break;
+            case EnemyState.Hole:
+                Hole();
+                break;
+        }
+        //CreatRay();
+    }
+
+    void Flee()
+    {
+        //-----処理-----
+
+        //-----状態変更-----
+        if(Vector3.Distance(transform.position,player.position) < 5f)
+        {
+            currentState = EnemyState.Chase;
+        }
+    }
+
+    void Chase()
+    {
+        //-----処理-----
+        transform.position = Vector3.MoveTowards(transform.position, player.position, Time.deltaTime * 2f);
+        //-----状態変更-----
+        if(Vector3.Distance(transform.position,player.position) < 1.5f)
+        {
+            currentState = EnemyState.Attack;
+        }
+    }
+
+    void Attack()
+    {
+        //-----処理-----
+
+        //-----状態変更-----
+
+    }
+    void Hole()
+    {
+        //-----処理-----
+
+        //-----状態変更-----
+
     }
 
     private void FixedUpdate()
     {
-        //rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
+        //rb.AddForce(transform.forward * speed , ForceMode.Force);
     }
 
-    void CreatRay()
+   /* void CreatRay()
     {
         Ray ray;
         RaycastHit hit;
@@ -39,18 +98,32 @@ public class EnemyController : MonoBehaviour
 
         
 
-        if(Physics.Raycast(ray, out hit,1.5f))
+        if(Physics.Raycast(ray, out hit,2))
         {
+        
 
+            //Ran();
             Debug.Log("HitObj" + hit.collider.gameObject.name);
             //Debug.DrawRay(origin, direction * 1.5f, Color.red);
 
         }
-    }
+    }*/
 
-   /* void Ran()
+    //-----乱数巡回-----
+ /*   void Ran()
     {
-        print(Random.Range(left,rigth));
+        int ran = Random.Range(left, rigth);
+        Debug.Log("乱数:" + ran);
+
+        if (ran <=5)
+        {
+            transform.Rotate(0, -90, 0);
+        }
+        else if(ran >= 5)
+        {
+            transform.Rotate(0, 90, 0);
+        }
+        
     }*/
 
 }
