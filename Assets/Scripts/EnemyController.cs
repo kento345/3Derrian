@@ -11,17 +11,15 @@ public class EnemyController : MonoBehaviour
 
 
     //移動
-    [SerializeField] private float speed = 10.0f;
+    [SerializeField] private float speed;
+    [SerializeField] private GameObject[] targets;
+    [SerializeField] private GameObject InitEnemy = null;
 
-    private int rigth = 10;
-    private int left  = 0;
-
-    Rigidbody rb;
 
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        FindEnemy();
     }
 
     void Update()
@@ -31,7 +29,7 @@ public class EnemyController : MonoBehaviour
             case EnemyState.Flee:
                 Flee();
                 break;
-            case EnemyState.Chase:
+         /*   case EnemyState.Chase:
                 Chase();
                 break;
             case EnemyState.Attack:
@@ -39,7 +37,7 @@ public class EnemyController : MonoBehaviour
                 break;
             case EnemyState.Hole:
                 Hole();
-                break;
+                break;*/
         }
         //CreatRay();
     }
@@ -47,12 +45,24 @@ public class EnemyController : MonoBehaviour
     void Flee()
     {
         //-----処理-----
+        if (InitEnemy == null)
+        {
+            FindEnemy();
+            return;
+        }
+        float step = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, InitEnemy.transform.position, step);
 
-        //-----状態変更-----
-        if(Vector3.Distance(transform.position,player.position) < 5f)
+        if (Vector3.Distance(transform.position, InitEnemy.transform.position) < 0.1f)
+        {
+            FindEnemy();
+        }
+
+     /*   //-----状態変更-----
+        if (Vector3.Distance(transform.position,player.position) < 5f)
         {
             currentState = EnemyState.Chase;
-        }
+        }*/
     }
 
     void Chase()
@@ -83,47 +93,35 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //rb.AddForce(transform.forward * speed , ForceMode.Force);
+        
     }
 
-   /* void CreatRay()
+    void FindEnemy()
     {
-        Ray ray;
-        RaycastHit hit;
-        var origin = transform.position + new Vector3(0, 1, 0);
+        targets = GameObject.FindGameObjectsWithTag("Point");
 
-        var direction = transform.forward;
-        
-        ray = new Ray(origin , direction);
 
-        
 
-        if(Physics.Raycast(ray, out hit,2))
+        float dist = Mathf.Infinity;
+        GameObject nextEnemy = null;
+
+        foreach (GameObject t in targets)
         {
-        
+            float tDist = Vector3.Distance(transform.position, t.transform.position);
 
-            //Ran();
-            Debug.Log("HitObj" + hit.collider.gameObject.name);
-            //Debug.DrawRay(origin, direction * 1.5f, Color.red);
+            if (tDist < dist && tDist > 0.1f)
+            {
+                dist = tDist;
 
+                nextEnemy = t;
+            }
+
+            if (tDist == 0)
+            {
+                InitEnemy = null;
+                return;
+            }
         }
-    }*/
-
-    //-----乱数巡回-----
- /*   void Ran()
-    {
-        int ran = Random.Range(left, rigth);
-        Debug.Log("乱数:" + ran);
-
-        if (ran <=5)
-        {
-            transform.Rotate(0, -90, 0);
-        }
-        else if(ran >= 5)
-        {
-            transform.Rotate(0, 90, 0);
-        }
-        
-    }*/
-
+        InitEnemy = nextEnemy;
+    }
 }
