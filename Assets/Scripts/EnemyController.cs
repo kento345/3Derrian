@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
+using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
@@ -12,10 +14,13 @@ public class EnemyController : MonoBehaviour
 
     //移動
     [SerializeField] private float speed;
-    [SerializeField] private GameObject[] targets;
+    [SerializeField] private List<GameObject> targets;
     [SerializeField] private GameObject InitEnemy = null;
 
-
+    [Header("当たり判定")]
+    [SerializeField] private Vector3 wallCheckOffset;
+    [SerializeField] private float wallChackRadius;
+    
 
     void Start()
     {
@@ -98,9 +103,7 @@ public class EnemyController : MonoBehaviour
 
     void FindEnemy()
     {
-        targets = GameObject.FindGameObjectsWithTag("Point");
-
-
+        targets = new List<GameObject>(GameObject.FindGameObjectsWithTag("Point"));
 
         float dist = Mathf.Infinity;
         GameObject nextEnemy = null;
@@ -116,12 +119,21 @@ public class EnemyController : MonoBehaviour
                 nextEnemy = t;
             }
 
-            if (tDist == 0)
+            if (tDist < 0.1f)
             {
-                InitEnemy = null;
+                targets.Remove(InitEnemy);
                 return;
             }
+            InitEnemy = nextEnemy;
         }
-        InitEnemy = nextEnemy;
+    }
+
+    
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Vector3 chackPosition = transform.position + wallCheckOffset;
+        Gizmos.DrawWireSphere(chackPosition, wallChackRadius );
     }
 }
