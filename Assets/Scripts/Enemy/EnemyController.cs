@@ -9,16 +9,17 @@ public class EnemyController : MonoBehaviour
         Flee,Chase,Attack,Hole
     }
     public EnemyState currentState = EnemyState.Flee;
-    private Transform player;
+    [SerializeField] private Transform player;
 
     //-----class-----
     FleeMove fm;
-
+    ChaceMove cm;
 
     void Start()
     {
         //初期化
       fm = GetComponent<FleeMove>();
+      cm = GetComponent<ChaceMove>();
     }
 
     void Update()
@@ -28,10 +29,10 @@ public class EnemyController : MonoBehaviour
             case EnemyState.Flee:
                 Flee();
                 break;
-         /*   case EnemyState.Chase:
+            case EnemyState.Chase:
                 Chase();
                 break;
-            case EnemyState.Attack:
+          /*  case EnemyState.Attack:
                 Attack();
                 break;
             case EnemyState.Hole:
@@ -47,17 +48,18 @@ public class EnemyController : MonoBehaviour
         fm.Move();
         fm.CreatRay();
 
-     /*   //-----状態変更-----
-        if (Vector3.Distance(transform.position,player.position) < 5f)
+        //-----状態変更-----
+        if (Vector3.Distance(transform.position, player.position) < 10.0f)
         {
             currentState = EnemyState.Chase;
-        }*/
+        }
     }
 
     void Chase()
     {
         //-----処理-----
-        transform.position = Vector3.MoveTowards(transform.position, player.position, Time.deltaTime * 2f);
+        cm.Chace();
+        Debug.Log("追跡");
         //-----状態変更-----
         if(Vector3.Distance(transform.position,player.position) < 1.5f)
         {
