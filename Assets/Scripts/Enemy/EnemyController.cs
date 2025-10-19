@@ -11,11 +11,9 @@ public class EnemyController : MonoBehaviour
     public EnemyState currentState = EnemyState.Flee;
     private Transform player;
 
+    //-----class-----
+    FleeMove fm;
 
-    //移動
-    [SerializeField] private float speed;
-    [SerializeField] private List<GameObject> targets;
-    [SerializeField] private GameObject InitEnemy = null;
 
     [Header("当たり判定")]
     [SerializeField] private Vector3 wallCheckOffset;
@@ -24,7 +22,8 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        FindEnemy();
+        //初期化
+      fm = GetComponent<FleeMove>();
     }
 
     void Update()
@@ -50,18 +49,8 @@ public class EnemyController : MonoBehaviour
     void Flee()
     {
         //-----処理-----
-        if (InitEnemy == null)
-        {
-            FindEnemy();
-            return;
-        }
-        float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, InitEnemy.transform.position, step);
-
-        if (Vector3.Distance(transform.position, InitEnemy.transform.position) < 0.1f)
-        {
-            FindEnemy();
-        }
+        fm.Move();
+        fm.CreatRay();
 
      /*   //-----状態変更-----
         if (Vector3.Distance(transform.position,player.position) < 5f)
@@ -96,44 +85,5 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
-
-    void FindEnemy()
-    {
-        targets = new List<GameObject>(GameObject.FindGameObjectsWithTag("Point"));
-
-        float dist = Mathf.Infinity;
-        GameObject nextEnemy = null;
-
-        foreach (GameObject t in targets)
-        {
-            float tDist = Vector3.Distance(transform.position, t.transform.position);
-
-            if (tDist < dist && tDist > 0.1f)
-            {
-                dist = tDist;
-
-                nextEnemy = t;
-            }
-
-            if (tDist < 0.1f)
-            {
-                targets.Remove(InitEnemy);
-                return;
-            }
-            InitEnemy = nextEnemy;
-        }
-    }
-
-    
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Vector3 chackPosition = transform.position + wallCheckOffset;
-        Gizmos.DrawWireSphere(chackPosition, wallChackRadius );
-    }
+ 
 }
