@@ -56,7 +56,7 @@ public class FleeMove : MonoBehaviour
                 //Ray‚ª‚ ‚½‚è‘±‚¯‚é‚Æ‚¸‚Á‚Æ¶‰E‚Éƒ‰ƒ“ƒ_ƒ€‚É‰ñ“]‚µ‚Ä‚µ‚Ü‚¤
 
                 int rnd = Random.Range(0, 2);
-                Debug.Log(rnd);
+                Debug.Log("Hit‚µ‚½");
                 if (rnd == 0)
                 {
                     Rot = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);

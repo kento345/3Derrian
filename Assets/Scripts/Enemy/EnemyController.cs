@@ -15,11 +15,6 @@ public class EnemyController : MonoBehaviour
     FleeMove fm;
 
 
-    [Header("当たり判定")]
-    [SerializeField] private Vector3 wallCheckOffset;
-    [SerializeField] private float wallChackRadius;
-    
-
     void Start()
     {
         //初期化
