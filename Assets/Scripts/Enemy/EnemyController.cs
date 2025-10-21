@@ -9,7 +9,9 @@ public class EnemyController : MonoBehaviour
         Flee,Chase,Attack,Hole
     }
     public EnemyState currentState = EnemyState.Flee;
-    [SerializeField] private Transform player;
+    [SerializeField] private GameObject player;
+
+    //ProjectのPlayerのオブジェクトを入れると原点のポジションを取得してしまうHierarchyのPlayerの移動中のPlayerに追尾せず原点の方向に行く
 
     //-----class-----
     FleeMove fm;
@@ -49,9 +51,14 @@ public class EnemyController : MonoBehaviour
         fm.CreatRay();
 
         //-----状態変更-----
-        if (Vector3.Distance(transform.position, player.position) < 10.0f)
+        if (Vector3.Distance(transform.position, player.transform.position) < 10.0f)
         {
+            Debug.Log("追跡へ");
             currentState = EnemyState.Chase;
+        }
+        else if(Vector3.Distance(transform.position,player.transform.position) > 20.0f)
+        {
+            currentState = EnemyState.Flee;
         }
     }
 
@@ -59,12 +66,18 @@ public class EnemyController : MonoBehaviour
     {
         //-----処理-----
         cm.Chace();
-        Debug.Log("追跡");
+
         //-----状態変更-----
-        if(Vector3.Distance(transform.position,player.position) < 1.5f)
+        if (Vector3.Distance(transform.position,player.transform.position) < 1.5f)
         {
+            Debug.Log("攻撃へ");
             currentState = EnemyState.Attack;
         }
+        //-----状態変更-----Holeへの変更
+        /*else if()
+        {
+
+        }*/
     }
 
     void Attack()

@@ -10,11 +10,12 @@ public class ChaceMove : MonoBehaviour
 
     public void Chace()
     {
-        float dist = Vector3.Distance(transform.position, player.transform.position);
-        if(dist < distance)
+
+        float dist = Vector3.Distance(transform.position,player.transform.position);
+        if (dist < distance)
         {
             float step = Time.deltaTime * speed;
-            transform.position = Vector3.MoveTowards(transform.position,player.transform.position,step);
+            transform.position = Vector3.MoveTowards(transform.position,player.transform.position, step);
         }
     }
 }

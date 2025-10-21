@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  player: {fileID: 7963609998072750023, guid: a28c95893748dbf4f9142d65a19d4b11, type: 3}
+  player: {fileID: 0}
 --- !u!114 &8910420025725371633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,8 +79,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db9f7af7d5621d409c29c79ed86a0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  player: {fileID: 5372361651288557717, guid: a28c95893748dbf4f9142d65a19d4b11, type: 3}
+  speed: 3
+  player: {fileID: 0}
 --- !u!136 &1785055307400003204
 CapsuleCollider:
   m_ObjectHideFlags: 0
