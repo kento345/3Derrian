@@ -56,10 +56,6 @@ public class EnemyController : MonoBehaviour
             Debug.Log("追跡へ");
             currentState = EnemyState.Chase;
         }
-        else if(Vector3.Distance(transform.position,player.transform.position) > 20.0f)
-        {
-            currentState = EnemyState.Flee;
-        }
     }
 
     void Chase()
@@ -72,6 +68,10 @@ public class EnemyController : MonoBehaviour
         {
             Debug.Log("攻撃へ");
             currentState = EnemyState.Attack;
+        }
+        else if (Vector3.Distance(transform.position, player.transform.position) > 10.0f)
+        {
+            currentState = EnemyState.Flee;
         }
         //-----状態変更-----Holeへの変更
         /*else if()
