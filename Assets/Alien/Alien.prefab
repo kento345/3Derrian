@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 3012572766810589785}
   - component: {fileID: 8910420025725371633}
   - component: {fileID: 1490897026797524610}
+  - component: {fileID: 5476633577127844512}
+  - component: {fileID: 2311894924713119711}
   - component: {fileID: 1785055307400003204}
   - component: {fileID: 3711176298850282792}
   - component: {fileID: 154480443442474922}
@@ -81,6 +83,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   player: {fileID: 0}
+  Rotspeed: 5
+--- !u!114 &5476633577127844512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677829275142593792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b12b51c766b9994ea4af7cb529b5edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2311894924713119711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677829275142593792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22acd9f62de069a4ba8a81f567e684b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holeLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!136 &1785055307400003204
 CapsuleCollider:
   m_ObjectHideFlags: 0
