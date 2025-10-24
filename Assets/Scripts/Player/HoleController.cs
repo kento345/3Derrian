@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class HoleController : MonoBehaviour
 {
-    public bool isMax = false;
+   [HideInInspector] public bool isMax = false;
     
     void Start()
     {

@@ -11,7 +11,6 @@ public class FleeMove : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
 
     private bool isHit = false;
-
     private bool wasHit = false;
 
 
@@ -49,24 +48,6 @@ public class FleeMove : MonoBehaviour
         Debug.DrawRay(origine, direction * distance, Color.red);
         if (Physics.Raycast(ray, out hit, distance))
         {
-
-            /*isHit = ((1 << hit.collider.gameObject.layer) & wallLayer) != 0;
-            if (isHit && !wasHit)
-            {
-                //Ray‚ª‚ ‚½‚è‘±‚¯‚é‚Æ‚¸‚Á‚Æ¶‰E‚Éƒ‰ƒ“ƒ_ƒ€‚É‰ñ“]‚µ‚Ä‚µ‚Ü‚¤
-
-                int rnd = Random.Range(0, 2);
-                //Debug.Log("Hit‚µ‚½");
-                if (rnd == 0)
-                {
-                    Rot = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);
-                }
-                else
-                {
-                    Rot = Quaternion.Euler(0, transform.eulerAngles.y - 90, 0);
-                }
-
-            } */
             isHit = true;
             if(isHit && !wasHit)
             {

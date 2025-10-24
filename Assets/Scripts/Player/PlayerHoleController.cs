@@ -11,8 +11,9 @@ public class PlayerHoleController : MonoBehaviour
     private GameObject hole;
     private HoleController holeCon;
 
-    public bool isDigging = false;
+    [HideInInspector] public bool isDigging = false;
     private bool isHole = false;
+    private bool isSmoal = false;
 
 
     public void OnSpace(InputAction.CallbackContext context)
@@ -37,11 +38,17 @@ public class PlayerHoleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //穴のサイズ変更
         if (isDigging && hole.transform.localScale.x < 1.0f )
         {
             hole.transform.localScale += new Vector3(0.01f, 0f, 0.01f);
         }
-        if(hole == null) { return; }
+        CheckHole();
+    }
+    //完成された穴が正面にあるかの判定
+    void CheckHole()
+    {
+        if (hole == null) { return; }
         holeCon = hole.GetComponent<HoleController>();
 
 
@@ -51,14 +58,14 @@ public class PlayerHoleController : MonoBehaviour
 
         Ray ray = new Ray(origine, direction);
         RaycastHit hit;
-        Debug.DrawRay(origine,direction * distance, Color.red);
-        if(Physics.Raycast(ray, out hit,distance))
+        Debug.DrawRay(origine, direction * distance, Color.red);
+        if (Physics.Raycast(ray, out hit, distance))
         {
             isHole = ((1 << hit.collider.gameObject.layer) & holeLayer) != 0;
 
-            if(isHole && holeCon.isMax)
+            if (isHole && holeCon.isMax)
             {
-                Debug.Log("100");
+               //小さくする
             }
         }
     }
