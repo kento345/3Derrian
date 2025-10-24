@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 655931063302785159}
   - component: {fileID: 4312797821080740265}
   - component: {fileID: 8038234805623638230}
+  - component: {fileID: 2588752289864278795}
   - component: {fileID: 2484351588356407894}
   - component: {fileID: 7121508034562195301}
   m_Layer: 8
@@ -133,9 +134,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  animator: {fileID: 7121508034562195301}
+--- !u!114 &2588752289864278795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5372361651288557717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f17922be511610478fc955b9e48ebed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   HolePrefab: {fileID: 2507348670015246987, guid: 2cc36d657c2ef8949aae3eef86b1edee, type: 3}
   HolePos: {fileID: 6071649308021073090}
-  animator: {fileID: 7121508034562195301}
+  isDigging: 0
 --- !u!114 &2484351588356407894
 MonoBehaviour:
   m_ObjectHideFlags: 0

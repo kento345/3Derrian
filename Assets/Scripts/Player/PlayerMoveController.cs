@@ -2,36 +2,25 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
-public class PlayerController : MonoBehaviour
+public class PlayerMoveController : MonoBehaviour
 {
     //-----ˆÚ“®-----
     [SerializeField] private float speed = 10;
     private Vector2 inputVer;
-    //-----ŒŠ–x-----
-    [SerializeField] private GameObject HolePrefab;
-    [SerializeField] private GameObject HolePos;
+    
 
-
-     
     [SerializeField] private Animator animator;
 
-    private bool isDigging = false;
+    private PlayerHoleController holeCon;
 
     public void OnMove(InputAction.CallbackContext context)
     {
         inputVer = context.ReadValue<Vector2>();
     }
-    public void OnSpace(InputAction.CallbackContext context)
+
+    private void Start()
     {
-        if (context.performed)
-        {
-            Instantiate(HolePrefab, HolePos.transform.position,Quaternion.identity);
-            isDigging = true;
-        }
-        if (context.canceled)
-        {
-            isDigging= false;
-        }
+        holeCon = GetComponent<PlayerHoleController>();
     }
 
     void Update()
@@ -39,7 +28,7 @@ public class PlayerController : MonoBehaviour
         Move();
 
 
-        animator.SetBool("IsDigging",isDigging);
+        animator.SetBool("IsDigging", holeCon.isDigging);
     }
 
     void Move()
