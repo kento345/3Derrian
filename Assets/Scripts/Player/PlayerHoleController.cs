@@ -10,6 +10,7 @@ public class PlayerHoleController : MonoBehaviour
     [SerializeField] private LayerMask holeLayer;
     private GameObject hole;
     private HoleController holeCon;
+    [SerializeField] private GameObject box;
 
     [HideInInspector] public bool isDigging = false;
     private bool isHole = false;
@@ -18,7 +19,7 @@ public class PlayerHoleController : MonoBehaviour
 
     public void OnSpace(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !isHole)
         {
             hole = Instantiate(HolePrefab, HolePos.transform.position, Quaternion.identity);
             isDigging = true;
@@ -32,7 +33,7 @@ public class PlayerHoleController : MonoBehaviour
 
     void Start()
     {
-        
+        GameObject bc = box.GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -48,7 +49,7 @@ public class PlayerHoleController : MonoBehaviour
     //äÆê¨Ç≥ÇÍÇΩåäÇ™ê≥ñ Ç…Ç†ÇÈÇ©ÇÃîªíË
     void CheckHole()
     {
-        if (hole == null) { return; }
+/*        if (hole == null) { return; }
         holeCon = hole.GetComponent<HoleController>();
 
 
@@ -61,12 +62,26 @@ public class PlayerHoleController : MonoBehaviour
         Debug.DrawRay(origine, direction * distance, Color.red);
         if (Physics.Raycast(ray, out hit, distance))
         {
-            isHole = ((1 << hit.collider.gameObject.layer) & holeLayer) != 0;
+            
 
+           
             if (isHole && holeCon.isMax)
             {
                //è¨Ç≥Ç≠Ç∑ÇÈ
             }
+        }*/
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Hole"))
+        {
+
+        }
+        else if(other.gameObject.CompareTag("Wall"))
+        {
+
         }
     }
 }
+

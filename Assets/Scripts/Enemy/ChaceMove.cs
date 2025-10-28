@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ChaceMove : MonoBehaviour
 {
-    [SerializeField] private float speed = 5.0f;
+    public float speed = 5.0f;
     [SerializeField] private GameObject player;
     private float distance = 10.0f;
 

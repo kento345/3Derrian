@@ -3,7 +3,7 @@ using UnityEngine;
 public class FleeMove : MonoBehaviour
 {
     //ˆÚ“®
-    private float speed = 5.0f;
+    public float speed = 5.0f;
     private float timer = 1.0f;
     private float Count;
     private Quaternion Rot;
