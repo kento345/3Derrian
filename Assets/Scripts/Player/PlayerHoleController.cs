@@ -10,7 +10,6 @@ public class PlayerHoleController : MonoBehaviour
     [SerializeField] private LayerMask holeLayer;
     private GameObject hole;
     private HoleController holeCon;
-    [SerializeField] private GameObject box;
 
     [HideInInspector] public bool isDigging = false;
     private bool isHole = false;
