@@ -16,13 +16,30 @@ public class PlayerHoleController : MonoBehaviour
     private bool isHole = false;
     private bool isSmoal = false;
 
+    [SerializeField] CollideScript collideScript;
 
     public void OnSpace(InputAction.CallbackContext context)
     {
-        if (context.performed && !isHole)
+        if (context.performed )
         {
-            hole = Instantiate(HolePrefab, HolePos.transform.position, Quaternion.identity);
-            isDigging = true;
+            var g = collideScript.Chack();
+            if ( g == null)
+            {
+                hole = Instantiate(HolePrefab, HolePos.transform.position, Quaternion.identity);
+                isDigging = true;
+            }
+            else if(g.tag == "Hole")
+            {
+                if (isDigging && hole.transform.localScale.x < 1.0f)
+                {
+                    hole.transform.localScale += new Vector3(0.01f, 0f, 0.01f);
+                }
+            }
+            else if(g.tag == "Wall")
+            {
+
+            }
+            
         }
         if (context.canceled)
         {
@@ -33,21 +50,18 @@ public class PlayerHoleController : MonoBehaviour
 
     void Start()
     {
-        GameObject bc = box.GetComponent<BoxCollider>();
+        //GameObject bc = box.GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
     void Update()
     {
         //穴のサイズ変更
-        if (isDigging && hole.transform.localScale.x < 1.0f )
-        {
-            hole.transform.localScale += new Vector3(0.01f, 0f, 0.01f);
-        }
-        CheckHole();
+        
+        //CheckHole();
     }
     //完成された穴が正面にあるかの判定
-    void CheckHole()
+    void CheckHole(GameObject hole)
     {
 /*        if (hole == null) { return; }
         holeCon = hole.GetComponent<HoleController>();
@@ -70,18 +84,11 @@ public class PlayerHoleController : MonoBehaviour
                //小さくする
             }
         }*/
+
+
+
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Hole"))
-        {
-
-        }
-        else if(other.gameObject.CompareTag("Wall"))
-        {
-
-        }
-    }
+    
 }
 
