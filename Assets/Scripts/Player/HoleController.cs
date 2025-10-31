@@ -11,13 +11,13 @@ public class HoleController : MonoBehaviour
 
     void Update()
     {
-        if (transform.localScale.x >= 1.0f)
+ /*       if (transform.localScale.x >= 1.0f)
         {
             isMax = true;
         }
         else
         {
             isMax = false;
-        }
+        }*/
     }
 }
