@@ -7,7 +7,6 @@ public class PlayerHoleController : MonoBehaviour
     //-----ŒŠ–x-----
     [SerializeField] private GameObject HolePrefab;
     [SerializeField] private GameObject HolePos;
-    [SerializeField] private LayerMask holeLayer;
     [SerializeField] private GameObject hole;
     private HoleController holeCon;
 
@@ -24,16 +23,17 @@ public class PlayerHoleController : MonoBehaviour
             {
                 Instantiate(HolePrefab, HolePos.transform.position, Quaternion.identity);
                 isDigging = true;
+                hole = null;
             }
             else if(g.tag == "Hole")
             {
                 hole = collideScript.hole; 
                 if (isDigging /*&& hole.transform.localScale.x < 1.0f*/)
                 {
-                    /*for (float i = 1; i < 2; i += 0.1f)
-                    {
-                        hole.transform.localScale = new Vector3(i,1,i);
-                    }*/
+                    /* for (float i = 1; i <= 2; i += 0.1f)
+                     {
+                         hole.transform.localScale = new Vector3(i, 1, i);
+                     }*/
                 }
             }
             else if(g.tag == "Wall")
@@ -45,6 +45,7 @@ public class PlayerHoleController : MonoBehaviour
         if (context.canceled)
         {
             isDigging = false;
+            hole = null;
         }
     }
 
