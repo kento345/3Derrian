@@ -7,15 +7,15 @@ public class CollideScript : MonoBehaviour
     public bool isHole = false;
     public bool isHWall = false;
     public GameObject hole;
-    [SerializeField] private GameObject wall;
+    private GameObject wall;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Hole"))
+        if(other.CompareTag("Hole"))
         {
             isHole = true;
             hole = other.gameObject;
         }
-        else if (other.gameObject.CompareTag("Wall"))
+        else if (other.CompareTag("Wall"))
         {
             isHWall = true;
             wall = other.gameObject;
@@ -24,12 +24,12 @@ public class CollideScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Hole"))
+        if (other.CompareTag("Hole"))
         {
             isHole = false;
             hole = null;
         }
-        else if (other.gameObject.CompareTag("Wall"))
+        else if (other.CompareTag("Wall"))
         {
             isHWall = false;
             wall = null;

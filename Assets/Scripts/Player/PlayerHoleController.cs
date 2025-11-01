@@ -7,8 +7,10 @@ public class PlayerHoleController : MonoBehaviour
     //-----ŒŠ–x-----
     [SerializeField] private GameObject HolePrefab;
     [SerializeField] private GameObject HolePos;
-    [SerializeField] private GameObject hole;
+
+    private GameObject h;
     private HoleController holeCon;
+    private float scale = 0.1f;
 
     [HideInInspector] public bool isDigging = false;
 
@@ -21,20 +23,15 @@ public class PlayerHoleController : MonoBehaviour
             var g = collideScript.Chack();
             if ( g == null)
             {
-                Instantiate(HolePrefab, HolePos.transform.position, Quaternion.identity);
+                h = Instantiate(HolePrefab, HolePos.transform.position, Quaternion.identity);
                 isDigging = true;
-                hole = null;
+
+              
             }
             else if(g.tag == "Hole")
             {
-                hole = collideScript.hole; 
-                if (isDigging /*&& hole.transform.localScale.x < 1.0f*/)
-                {
-                    /* for (float i = 1; i <= 2; i += 0.1f)
-                     {
-                         hole.transform.localScale = new Vector3(i, 1, i);
-                     }*/
-                }
+                h = g;
+                isDigging = true;
             }
             else if(g.tag == "Wall")
             {
@@ -45,7 +42,7 @@ public class PlayerHoleController : MonoBehaviour
         if (context.canceled)
         {
             isDigging = false;
-            hole = null;
+            h = null;
         }
     }
 
@@ -58,7 +55,17 @@ public class PlayerHoleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        if (isDigging && h != null)
+        {
+            Vector3 cur = h.transform.localScale;
+
+            if (cur.x < 2.0f)
+            {
+                cur.x = Mathf.Min(cur.x + scale * Time.deltaTime * 10f, 2.0f);
+                cur.z = Mathf.Min(cur.z + scale * Time.deltaTime * 10f, 2.0f);
+                h.transform.localScale = cur;
+            }
+        }
     }
 }
 
